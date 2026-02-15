@@ -76,7 +76,17 @@ export function useDevMode() {
     }
 
     document.addEventListener("keydown", handleKeyDown);
-    return () => document.removeEventListener("keydown", handleKeyDown);
+
+    // 5-tap logo trigger (works on mobile)
+    function handleDevToggle() {
+      togglePanel();
+    }
+    window.addEventListener("txfix:devtoggle", handleDevToggle);
+
+    return () => {
+      document.removeEventListener("keydown", handleKeyDown);
+      window.removeEventListener("txfix:devtoggle", handleDevToggle);
+    };
   }, [state.panelVisible, togglePanel, activate, deactivate]);
 
   const mockDiagnosis: DevModeDiagnosis | null = state.activeScenario
