@@ -15,7 +15,7 @@ export function checkConfirmationStatus(tx: MempoolTransaction): CheckResult {
   return {
     id: "confirmation-status",
     label: "Transaction found in mempool",
-    detail: "Unconfirmed -awaiting inclusion in a block",
+    detail: "Unconfirmed - awaiting inclusion in a block",
     status: "info",
     icon: "\u25CB",
   };

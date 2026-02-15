@@ -14,7 +14,7 @@ export type Platform = "desktop" | "mobile" | "web" | "hardware";
 
 /** A step in a wallet-specific guide */
 export interface GuideStep {
-  /** Numbered step instruction -supports **bold** markers for emphasis */
+  /** Numbered step instruction - supports **bold** markers for emphasis */
   instruction: string;
   /** Optional sub-note shown in muted text below the instruction */
   note?: string;
@@ -50,7 +50,7 @@ export interface WalletInfo {
   keywords: string[];
 }
 
-/** Resolved guide -the flattened result of wallet + method + verdict */
+/** Resolved guide - the flattened result of wallet + method + verdict */
 export interface ResolvedGuide {
   wallet: WalletInfo;
   method: "RBF" | "CPFP";

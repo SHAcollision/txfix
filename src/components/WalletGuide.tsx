@@ -14,6 +14,7 @@ import { Card } from "./ui/Card";
 import { Badge } from "./ui/Badge";
 import { Button } from "./ui/Button";
 import { WalletAvatar } from "./ui/WalletAvatar";
+import { TipJar } from "./TipJar";
 
 interface WalletGuideProps {
   guide: ResolvedGuide;
@@ -148,6 +149,8 @@ export function WalletGuide({
             </div>
           </div>
         </div>
+
+        <TipJar />
 
         {/* What now? - merged into main card */}
         <div className="border-t border-card-border pt-4 mt-4">

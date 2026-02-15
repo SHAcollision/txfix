@@ -6,7 +6,7 @@ export function checkRbfSignaling(tx: MempoolTransaction): CheckResult {
     return {
       id: "rbf-signaling",
       label: "No inputs",
-      detail: "Transaction has no inputs -cannot determine RBF signaling",
+      detail: "Transaction has no inputs - cannot determine RBF signaling",
       status: "warn",
       icon: "\u26A0",
     };

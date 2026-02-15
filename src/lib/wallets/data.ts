@@ -1,7 +1,7 @@
 import type { WalletInfo } from "./types";
 
 export const WALLETS: WalletInfo[] = [
-  // ── Sparrow (highest priority -most capable Bitcoin wallet) ───────────────
+  // ── Sparrow (highest priority - most capable Bitcoin wallet) ──────────────
   {
     id: "sparrow",
     name: "Sparrow Wallet",
@@ -27,7 +27,7 @@ export const WALLETS: WalletInfo[] = [
         },
         {
           instruction:
-            "Use the fee slider to set a higher fee rate -aim for the target rate shown by TxFix",
+            "Use the fee slider to set a higher fee rate - aim for the target rate shown by TxFix",
           note: "You can also check mempool.space for current next-block fee rates",
         },
         {
@@ -75,7 +75,7 @@ export const WALLETS: WalletInfo[] = [
         {
           instruction:
             "Find the unconfirmed output from the stuck transaction",
-          note: "It will show as unconfirmed (0 confirmations) -look for the matching amount",
+          note: "It will show as unconfirmed (0 confirmations) - look for the matching amount",
         },
         {
           instruction:
@@ -87,7 +87,7 @@ export const WALLETS: WalletInfo[] = [
         },
         {
           instruction:
-            "Set a high fee rate -it needs to compensate for both the parent and child transaction",
+            "Set a high fee rate - it needs to compensate for both the parent and child transaction",
           note: "Use the target fee rate shown by TxFix as your guide",
         },
         {
@@ -131,7 +131,7 @@ export const WALLETS: WalletInfo[] = [
         {
           instruction:
             "Open **Bitkit** on your phone and find the pending transaction in your activity list",
-          note: 'It should show as "Pending" or "Unconfirmed" -look for the transaction with the matching amount',
+          note: 'It should show as "Pending" or "Unconfirmed" - look for the transaction with the matching amount',
         },
         {
           instruction: "Tap on the pending transaction to open its details",
@@ -142,13 +142,13 @@ export const WALLETS: WalletInfo[] = [
         },
         {
           instruction:
-            "Choose a higher fee level -pick the fastest option available",
+            "Choose a higher fee level - pick the fastest option available",
           note: "Tip: screenshot this page first so you can reference the target fee rate while in Bitkit",
         },
         {
           instruction:
-            "Confirm the boost -Bitkit will send the updated transaction automatically",
-          note: "Your original transaction will be replaced (not duplicated). You will not pay twice -only the fee difference",
+            "Confirm the boost - Bitkit will send the updated transaction automatically",
+          note: "Your original transaction will be replaced (not duplicated). You will not pay twice - only the fee difference",
         },
         {
           instruction:
@@ -157,7 +157,7 @@ export const WALLETS: WalletInfo[] = [
       ],
       autoFee: true,
       caveat:
-        "This only works if you SENT this transaction from Bitkit. If someone sent Bitcoin TO you, Bitkit cannot speed it up -try changing your wallet to Sparrow or use an accelerator.",
+        "This only works if you SENT this transaction from Bitkit. If someone sent Bitcoin TO you, Bitkit cannot speed it up - try changing your wallet to Sparrow or use an accelerator.",
     },
     cpfp: {
       method: "CPFP",
@@ -193,7 +193,7 @@ export const WALLETS: WalletInfo[] = [
         },
         {
           instruction:
-            "Find your stuck unconfirmed transaction in the list -it will show a yellow triangle icon and be labeled **\"Replaceable\"**",
+            "Find your stuck unconfirmed transaction in the list - it will show a yellow triangle icon and be labeled **\"Replaceable\"**",
         },
         {
           instruction:
@@ -201,7 +201,7 @@ export const WALLETS: WalletInfo[] = [
         },
         {
           instruction:
-            "A fee window appears -drag the slider to a higher fee, or click the **wrench icon** (top right) and select **\"Edit fees manually\"** to type an exact sat/vB rate",
+            "A fee window appears - drag the slider to a higher fee, or click the **wrench icon** (top right) and select **\"Edit fees manually\"** to type an exact sat/vB rate",
           note: "Use the target fee rate shown by TxFix as your guide",
         },
         {
@@ -244,7 +244,7 @@ export const WALLETS: WalletInfo[] = [
         },
         {
           instruction:
-            "A fee window appears -set a high fee rate to compensate for both the parent and child transaction",
+            "A fee window appears - set a high fee rate to compensate for both the parent and child transaction",
           note: "Use the target fee rate shown by TxFix. Click the wrench icon to enter an exact sat/vB rate",
         },
         {
@@ -302,22 +302,22 @@ export const WALLETS: WalletInfo[] = [
         {
           instruction:
             'At the bottom of the details screen, tap **\"Boost Transaction Fee\"**',
-          note: "If you don't see this button, the transaction may already be confirmed -check the status at the top",
+          note: "If you don't see this button, the transaction may already be confirmed - check the status at the top",
         },
         {
           instruction:
-            "Ashigaru will show you the new fee amount -review it and tap **Confirm**",
-          note: "The wallet picks a higher fee automatically. You only pay the fee difference, not double -your Bitcoin amount stays the same",
+            "Ashigaru will show you the new fee amount - review it and tap **Confirm**",
+          note: "The wallet picks a higher fee automatically. You only pay the fee difference, not double - your Bitcoin amount stays the same",
         },
         {
           instruction:
             "Done! The updated transaction is sent automatically. Come back to TxFix and tap **\"Done\"** below to track confirmation",
-          note: "Your original transaction is replaced -you won't see two transactions, just the new faster one",
+          note: "Your original transaction is replaced - you won't see two transactions, just the new faster one",
         },
       ],
       autoFee: true,
       caveat:
-        "This only works for transactions you SENT from Ashigaru, and only if \"Spend using RBF\" was enabled in Settings > Transactions before sending. Not sure if it was enabled? Use the CPFP method instead -it works either way.",
+        "This only works for transactions you SENT from Ashigaru, and only if \"Spend using RBF\" was enabled in Settings > Transactions before sending. Not sure if it was enabled? Use the CPFP method instead - it works either way.",
     },
     cpfp: {
       method: "CPFP",
@@ -345,7 +345,7 @@ export const WALLETS: WalletInfo[] = [
         {
           instruction:
             "Review the fee amount shown and tap **Confirm**",
-          note: "The wallet calculates the right fee automatically. This costs a small extra fee for the boost only -your original Bitcoin amount is unchanged",
+          note: "The wallet calculates the right fee automatically. This costs a small extra fee for the boost only - your original Bitcoin amount is unchanged",
         },
         {
           instruction:
@@ -392,7 +392,7 @@ export const WALLETS: WalletInfo[] = [
         },
         {
           instruction:
-            "Choose a higher fee -you can pick a preset or enter a custom sat/vB rate",
+            "Choose a higher fee - you can pick a preset or enter a custom sat/vB rate",
           note: "Use the target fee rate shown by TxFix as your guide",
         },
         {
@@ -402,7 +402,7 @@ export const WALLETS: WalletInfo[] = [
         },
       ],
       caveat:
-        "Bump Fee only works with native SegWit (bech32) wallets. If your wallet uses a legacy address format, this won't work -try using Sparrow or Electrum instead.",
+        "Bump Fee only works with native SegWit (bech32) wallets. If your wallet uses a legacy address format, this won't work - try using Sparrow or Electrum instead.",
     },
     cpfp: {
       method: "CPFP",
@@ -476,7 +476,7 @@ export const WALLETS: WalletInfo[] = [
         },
         {
           instruction:
-            "Set a high custom fee -it needs to be enough to pay for both the parent and child transactions",
+            "Set a high custom fee - it needs to be enough to pay for both the parent and child transactions",
           note: "Bitcoin Core shows fees in BTC/kB. To convert: multiply sat/vB by 0.00001 to get BTC/kB",
         },
         {
@@ -485,7 +485,7 @@ export const WALLETS: WalletInfo[] = [
         },
       ],
       caveat:
-        "CPFP in Bitcoin Core requires using coin control to manually select the unconfirmed UTXO. This is more advanced -if you're not comfortable, consider using Electrum or Sparrow which have a simpler CPFP option.",
+        "CPFP in Bitcoin Core requires using coin control to manually select the unconfirmed UTXO. This is more advanced - if you're not comfortable, consider using Electrum or Sparrow which have a simpler CPFP option.",
     },
   },
 
@@ -518,7 +518,7 @@ export const WALLETS: WalletInfo[] = [
         },
         {
           instruction:
-            "Confirm the action in the dialog -Wasabi will show you the additional fee",
+            "Confirm the action in the dialog - Wasabi will show you the additional fee",
         },
         {
           instruction:
@@ -527,7 +527,7 @@ export const WALLETS: WalletInfo[] = [
       ],
       autoFee: true,
       caveat:
-        "Speed Up is not available for CoinJoin transactions or hardware wallet-connected wallets. Wasabi automatically calculates the new fee -you cannot set an exact sat/vB rate.",
+        "Speed Up is not available for CoinJoin transactions or hardware wallet-connected wallets. Wasabi automatically calculates the new fee - you cannot set an exact sat/vB rate.",
     },
     cpfp: {
       method: "CPFP",
@@ -550,7 +550,7 @@ export const WALLETS: WalletInfo[] = [
       ],
       autoFee: true,
       caveat:
-        "Speed Up is not available for CoinJoin transactions. Wasabi handles the RBF/CPFP choice automatically -you don't need to pick.",
+        "Speed Up is not available for CoinJoin transactions. Wasabi handles the RBF/CPFP choice automatically - you don't need to pick.",
     },
   },
 
@@ -594,7 +594,7 @@ export const WALLETS: WalletInfo[] = [
         },
         {
           instruction:
-            "**Confirm on your Ledger device** -verify the transaction details on the hardware wallet screen and approve",
+            "**Confirm on your Ledger device** - verify the transaction details on the hardware wallet screen and approve",
           note: "You must have your Ledger device connected and the Bitcoin app open",
         },
       ],
@@ -605,7 +605,7 @@ export const WALLETS: WalletInfo[] = [
       method: "CPFP",
       support: "none",
       caveat:
-        "Ledger Live doesn't have a built-in CPFP option. For incoming stuck transactions, you can pair your Ledger with Electrum or Sparrow to perform CPFP -your keys stay on the Ledger device.",
+        "Ledger Live doesn't have a built-in CPFP option. For incoming stuck transactions, you can pair your Ledger with Electrum or Sparrow to perform CPFP - your keys stay on the Ledger device.",
     },
   },
 
@@ -649,7 +649,7 @@ export const WALLETS: WalletInfo[] = [
         {
           instruction:
             'Click **\"Replace transaction\"** and then **confirm on your Trezor device**',
-          note: "Your Trezor will display the original transaction and the new fee -verify and approve on the device",
+          note: "Your Trezor will display the original transaction and the new fee - verify and approve on the device",
         },
       ],
       caveat:
@@ -666,7 +666,7 @@ export const WALLETS: WalletInfo[] = [
         {
           instruction:
             "Select the unconfirmed output from the stuck transaction",
-          note: "Look for the UTXO that shows 0 confirmations -this is from your stuck transaction",
+          note: "Look for the UTXO that shows 0 confirmations - this is from your stuck transaction",
         },
         {
           instruction:
@@ -674,7 +674,7 @@ export const WALLETS: WalletInfo[] = [
         },
         {
           instruction:
-            "Set a high custom fee in the **Advanced** fee tab -it must be enough to pay for both the parent and child transactions",
+            "Set a high custom fee in the **Advanced** fee tab - it must be enough to pay for both the parent and child transactions",
           note: "Use the target fee rate shown by TxFix as your guide",
         },
         {
@@ -727,7 +727,7 @@ export const WALLETS: WalletInfo[] = [
       ],
       autoFee: true,
       caveat:
-        "Accelerate requires additional BTC in your wallet to cover the higher fee. Exodus automatically chooses the best method (RBF or CPFP) -you don't need to pick.",
+        "Accelerate requires additional BTC in your wallet to cover the higher fee. Exodus automatically chooses the best method (RBF or CPFP) - you don't need to pick.",
     },
     cpfp: {
       method: "CPFP",
@@ -743,7 +743,7 @@ export const WALLETS: WalletInfo[] = [
         },
         {
           instruction:
-            'Tap **\"Accelerate\"** -Exodus will automatically use CPFP if RBF isn\'t available',
+            'Tap **\"Accelerate\"** - Exodus will automatically use CPFP if RBF isn\'t available',
           note: "CPFP works by creating a follow-up transaction with a higher fee to pull the stuck transaction through",
         },
         {
@@ -814,7 +814,7 @@ export const WALLETS: WalletInfo[] = [
         },
         {
           instruction:
-            "Set a higher fee rate -follow the prompts similar to sending a normal transaction",
+            "Set a higher fee rate - follow the prompts similar to sending a normal transaction",
           note: "Use the target fee rate shown by TxFix as your guide",
         },
         {
@@ -832,7 +832,7 @@ export const WALLETS: WalletInfo[] = [
     },
   },
 
-  // ── Other / Not Listed (always last -generic PSBT fallback) ──────────────
+  // ── Other / Not Listed (always last - generic PSBT fallback) ─────────────
   {
     id: "other",
     name: "Other / Not Listed",
@@ -851,7 +851,7 @@ export const WALLETS: WalletInfo[] = [
         },
         {
           instruction:
-            "Download the .psbt file, scan the QR code, or copy the hex -whichever your wallet supports",
+            "Download the .psbt file, scan the QR code, or copy the hex - whichever your wallet supports",
         },
         {
           instruction:

@@ -46,7 +46,7 @@ export const metadata: Metadata = {
     locale: "en_US",
   },
   twitter: {
-    card: "summary",
+    card: "summary_large_image",
     title: "TxFix - Unstick Bitcoin Transactions in 3 Clicks",
     description:
       "Stuck Bitcoin transaction? Free diagnosis. 3 clicks to unstick. No keys required.",
@@ -56,6 +56,7 @@ export const metadata: Metadata = {
     follow: true,
   },
   applicationName: "TxFix",
+  manifest: "/manifest.json",
 };
 
 export default function RootLayout({

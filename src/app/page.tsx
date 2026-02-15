@@ -19,6 +19,7 @@ import { TxFixError } from "@/lib/errors";
 import { truncateTxid } from "@/lib/bitcoin/format";
 import { getWalletById } from "@/lib/wallets/data";
 import { resolveGuide } from "@/lib/wallets/resolveGuide";
+import { SponsorCta } from "@/components/SponsorCta";
 import { useKeyboardNav } from "@/hooks/useKeyboardNav";
 import { useDevMode } from "@/hooks/useDevMode";
 import { DevPanel } from "@/components/DevPanel";
@@ -248,6 +249,7 @@ export default function Home() {
               <ShieldCheck size={14} className="text-success/50" />
               Your keys never leave your device
             </p>
+            <SponsorCta />
           </motion.div>
         ) : (
           /* -- Rescue Timeline ---------------------------------------------- */

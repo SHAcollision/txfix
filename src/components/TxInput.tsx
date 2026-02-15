@@ -105,6 +105,7 @@ export function TxInput({ onSubmit, isLoading, compact = false }: TxInputProps) 
           spellCheck={false}
           autoComplete="off"
           autoFocus
+          aria-label="Transaction ID"
           aria-describedby={error ? "txid-error" : undefined}
           className={`relative w-full bg-card-bg border rounded-xl px-5 py-4
             font-mono text-sm sm:text-base text-foreground placeholder:text-muted/50

@@ -6,6 +6,7 @@ import { truncateTxid, formatSats, satsToDollars } from "@/lib/bitcoin/format";
 import { useNetwork } from "@/context/NetworkContext";
 import { motion } from "motion/react";
 import { ShieldCheck } from "lucide-react";
+import { TipJar } from "./TipJar";
 
 interface RescueReceiptProps {
   originalTxid: string;
@@ -99,6 +100,10 @@ export function RescueReceipt({
           <CopyButton text={summaryText} label="Copy summary" />
         </div>
       </Card>
+
+      <div className="mt-4">
+        <TipJar />
+      </div>
     </motion.div>
   );
 }

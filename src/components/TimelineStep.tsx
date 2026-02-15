@@ -53,6 +53,7 @@ export function TimelineStep({
         className={`flex items-center gap-3 w-full text-left group
           ${canToggle ? "cursor-pointer" : "cursor-default"}`}
         aria-expanded={showContent}
+        aria-label={`Step ${step}: ${label}`}
         disabled={!canToggle}
       >
         {/* Circle indicator */}

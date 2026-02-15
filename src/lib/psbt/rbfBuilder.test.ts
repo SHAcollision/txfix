@@ -12,7 +12,7 @@ function makeSegWitTx() {
     vin: [makeVin({ sequence: 0xfffffffd })],
     vout: [
       makeVout({ value: 40_000, scriptpubkey_type: "p2pkh", scriptpubkey_address: "1abc" }),
-      makeVout({ value: 59_000 }), // change -matches input type v0_p2wpkh
+      makeVout({ value: 59_000 }), // change - matches input type v0_p2wpkh
     ],
   });
 }
@@ -40,7 +40,7 @@ describe("buildRbfPsbt", () => {
     const result = buildRbfPsbt({
       originalTx: tx,
       originalTxHex: "0200000000010100" + "ab".repeat(100),
-      inputTxHexMap: {}, // empty map -ok because all inputs are SegWit
+      inputTxHexMap: {}, // empty map - ok because all inputs are SegWit
       targetFeeRate: 20,
       network,
     });

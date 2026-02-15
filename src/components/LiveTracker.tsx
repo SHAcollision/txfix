@@ -6,7 +6,7 @@ import { Card } from "./ui/Card";
 import { Spinner } from "./ui/Spinner";
 import { truncateTxid } from "@/lib/bitcoin/format";
 import { motion } from "motion/react";
-import { Check, ExternalLink } from "lucide-react";
+import { Check, ExternalLink, AlertTriangle, RotateCcw } from "lucide-react";
 
 interface LiveTrackerProps {
   txid: string;
@@ -32,7 +32,7 @@ export function LiveTracker({
   onConfirmed,
 }: LiveTrackerProps) {
   const { config } = useNetwork();
-  const { status, blockHeight } = useLiveTracker(txid, onConfirmed);
+  const { status, blockHeight, error } = useLiveTracker(txid, onConfirmed);
   const activeIndex = getActiveIndex(status);
   const isConfirmed = status === "confirmed";
 
@@ -117,7 +117,7 @@ export function LiveTracker({
         </motion.p>
       )}
 
-      {!isConfirmed && (
+      {!isConfirmed && !error && (
         <div className="text-center space-y-1">
           <p className="text-muted text-xs">
             Checking every 10 seconds...
@@ -125,6 +125,27 @@ export function LiveTracker({
           <p className="text-muted/50 text-xs">
             You can close this tab - your transaction will confirm either way.
           </p>
+        </div>
+      )}
+
+      {!isConfirmed && error && (
+        <div className="bg-danger/10 border border-danger/30 rounded-lg px-3 py-2.5 flex items-start gap-2">
+          <AlertTriangle size={14} className="text-danger shrink-0 mt-0.5" />
+          <div className="flex-1 min-w-0">
+            <p className="text-danger text-xs font-medium">
+              Could not check transaction status
+            </p>
+            <p className="text-muted text-xs mt-0.5">
+              Will retry automatically. You can also check on mempool.space directly.
+            </p>
+          </div>
+          <button
+            onClick={() => window.location.reload()}
+            className="text-muted hover:text-foreground transition-colors cursor-pointer shrink-0"
+            aria-label="Reload page"
+          >
+            <RotateCcw size={14} />
+          </button>
         </div>
       )}
 

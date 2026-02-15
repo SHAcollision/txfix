@@ -5,7 +5,7 @@ import { makeTx, MEMPOOL_INFO } from "@/lib/__testdata__/fixtures";
 describe("checkMempoolPosition", () => {
   it("passes for high-fee tx (near front)", () => {
     const tx = makeTx({ weight: 400, fee: 50_000 });
-    // feeRate = 50000/100 = 500 sat/vB -above all histogram entries
+    // feeRate = 50000/100 = 500 sat/vB - above all histogram entries
     const result = checkMempoolPosition(tx, MEMPOOL_INFO);
     expect(result.status).toBe("pass");
     expect(result.label).toContain("front");

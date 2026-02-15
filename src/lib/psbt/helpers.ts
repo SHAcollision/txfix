@@ -62,7 +62,7 @@ export function identifyChangeOutput(tx: MempoolTransaction): number {
 export function extractRedeemScript(scriptsig: string): Uint8Array {
   const buf = hexToBytes(scriptsig);
   if (buf.length === 0) {
-    throw new Error("Empty scriptsig -cannot extract redeem script");
+    throw new Error("Empty scriptsig - cannot extract redeem script");
   }
   const opcode = buf[0];
   let dataStart: number;
