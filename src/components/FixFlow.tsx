@@ -1,6 +1,7 @@
 "use client";
 
 import { useState, useCallback, useEffect, useRef } from "react";
+import { ArrowLeft } from "lucide-react";
 import { useNetwork } from "@/context/NetworkContext";
 import { usePsbtBuilder } from "@/hooks/usePsbtBuilder";
 import type { MempoolTransaction } from "@/lib/api/types";
@@ -21,6 +22,8 @@ interface FixFlowProps {
   onCancel: () => void;
   /** Filter which PSBT delivery tabs to show */
   visibleTabs?: ("qr" | "file" | "hex")[];
+  /** Hide the "Back to diagnosis" link (when parent already has one) */
+  hideBackLink?: boolean;
 }
 
 export function FixFlow({
@@ -31,6 +34,7 @@ export function FixFlow({
   cpfpCandidates,
   onCancel,
   visibleTabs,
+  hideBackLink = false,
 }: FixFlowProps) {
   const { network } = useNetwork();
   const psbtBuilder = usePsbtBuilder();
@@ -104,12 +108,15 @@ export function FixFlow({
             ? psbtBuilder.error.userMessage
             : psbtBuilder.error.message}
         </p>
-        <button
-          onClick={onCancel}
-          className="text-muted text-sm hover:text-foreground transition-colors cursor-pointer"
-        >
-          &larr; Back to diagnosis
-        </button>
+        {!hideBackLink && (
+          <button
+            onClick={onCancel}
+            className="inline-flex items-center gap-1.5 text-muted text-sm hover:text-foreground transition-colors cursor-pointer"
+          >
+            <ArrowLeft size={14} />
+            Back to diagnosis
+          </button>
+        )}
       </Card>
     );
   }
@@ -126,12 +133,15 @@ export function FixFlow({
           targetFeeRate={verdict.targetFeeRate}
           visibleTabs={visibleTabs}
         />
-        <button
-          onClick={onCancel}
-          className="text-muted text-sm hover:text-foreground transition-colors cursor-pointer"
-        >
-          &larr; Back to diagnosis
-        </button>
+        {!hideBackLink && (
+          <button
+            onClick={onCancel}
+            className="inline-flex items-center gap-1.5 text-muted text-sm hover:text-foreground transition-colors cursor-pointer"
+          >
+            <ArrowLeft size={14} />
+            Back to diagnosis
+          </button>
+        )}
       </div>
     );
   }

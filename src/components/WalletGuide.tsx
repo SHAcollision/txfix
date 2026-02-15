@@ -2,6 +2,8 @@
 
 import { useState, type ReactNode } from "react";
 import { motion } from "motion/react";
+import { ArrowLeft, Crosshair } from "lucide-react";
+import { CopyButton } from "./ui/CopyButton";
 import type { ResolvedGuide } from "@/lib/wallets/types";
 import type { MempoolTransaction } from "@/lib/api/types";
 import type { CpfpCandidate, Verdict } from "@/lib/diagnosis/types";
@@ -102,7 +104,7 @@ export function WalletGuide({
         <ol className="space-y-3">
           {guide.steps.map((step, i) => (
             <li key={i} className="flex gap-3">
-              <span className="flex-shrink-0 w-7 h-7 rounded-full bg-bitcoin/15 text-bitcoin text-xs font-bold flex items-center justify-center mt-0.5">
+              <span className="flex-shrink-0 w-7 h-7 rounded-full bg-gradient-to-br from-bitcoin/25 to-bitcoin/15 text-bitcoin text-sm font-bold flex items-center justify-center mt-0.5 shadow-[0_0_8px_rgba(247,147,26,0.2)]">
                 {i + 1}
               </span>
               <div className="min-w-0">
@@ -117,61 +119,75 @@ export function WalletGuide({
           ))}
         </ol>
 
-        <div className="bg-bitcoin/10 border border-bitcoin/30 rounded-lg px-3 py-2 text-sm">
-          <span className="text-muted">Target fee rate: </span>
-          <strong className="text-bitcoin text-base">
-            {verdict.targetFeeRate} sat/vB
-          </strong>
-          <span className="text-muted block text-xs mt-0.5">
-            {guide.autoFee
-              ? "Your wallet will automatically pick a fee around this rate"
-              : "Set your wallet fee to at least this rate for next-block confirmation"}
-          </span>
-        </div>
-      </Card>
-
-      {/* Post-guide actions */}
-      <Card className="space-y-3">
-        <h4 className="font-semibold text-base">What now?</h4>
-        {!showBroadcast ? (
-          <>
-            <p className="text-muted text-xs">
-              After completing the steps above in your wallet, come back here
-              to track your transaction.
-            </p>
-            <Button
-              variant="primary"
-              size="sm"
-              onClick={() => setShowBroadcast(true)}
-            >
-              Done -track my transaction
-            </Button>
-
-            {guide.psbtAlternativeAvailable && !showPsbtFallback && (
-              <button
-                onClick={() => setShowPsbtFallback(true)}
-                className="block text-muted text-xs hover:text-foreground transition-colors cursor-pointer"
-              >
-                Having trouble? Import a PSBT file instead...
-              </button>
-            )}
-          </>
-        ) : (
-          <div>
-            <p className="text-muted text-xs mb-3">
-              Paste the replacement transaction ID from your wallet so TxFix
-              can track it. Check your wallet&apos;s transaction details for
-              the new TXID.
-            </p>
-            <BroadcastInput onBroadcasted={onBroadcasted} />
-            <button
-              onClick={() => setShowBroadcast(false)}
-              className="mt-2 text-muted text-xs hover:text-foreground transition-colors cursor-pointer"
-            >
-              &larr; Back to instructions
-            </button>
+        <div className="bg-bitcoin/15 border border-bitcoin/30 border-l-2 border-l-bitcoin rounded-lg px-3 py-2.5 text-sm">
+          <div className="flex items-start gap-2">
+            <Crosshair size={16} className="text-bitcoin shrink-0 mt-1" />
+            <div className="flex-1">
+              <span className="text-muted text-sm">Target fee rate</span>
+              <div className="flex items-center gap-2 mt-0.5">
+                <strong className="text-bitcoin text-2xl tabular-nums">
+                  {verdict.targetFeeRate} sat/vB
+                </strong>
+                <CopyButton
+                  text={String(verdict.targetFeeRate)}
+                  label="Copy"
+                  className="text-[10px] px-2 py-0.5"
+                />
+              </div>
+              <span className="text-muted block text-xs mt-1">
+                {guide.autoFee
+                  ? "Your wallet will automatically pick a fee around this rate"
+                  : "Set your wallet fee to at least this rate for next-block confirmation"}
+              </span>
+            </div>
           </div>
-        )}
+        </div>
+
+        {/* What now? - merged into main card */}
+        <div className="border-t border-card-border pt-4 mt-4">
+          <h4 className="font-semibold text-base">After you&apos;ve bumped the fee</h4>
+          {!showBroadcast ? (
+            <div className="space-y-3 mt-2">
+              <p className="text-muted text-xs">
+                After completing the steps above in your wallet, come back here
+                to track your transaction.
+              </p>
+              <Button
+                variant="primary"
+                size="sm"
+                onClick={() => setShowBroadcast(true)}
+                data-guide-action
+              >
+                Track my transaction
+              </Button>
+
+              {guide.psbtAlternativeAvailable && !showPsbtFallback && (
+                <button
+                  onClick={() => setShowPsbtFallback(true)}
+                  className="block text-muted text-xs hover:text-foreground transition-colors cursor-pointer"
+                >
+                  Having trouble? Import a PSBT file instead...
+                </button>
+              )}
+            </div>
+          ) : (
+            <div className="mt-2">
+              <p className="text-muted text-xs mb-3">
+                Paste the replacement transaction ID from your wallet so TxFix
+                can track it. Check your wallet&apos;s transaction details for
+                the new TXID.
+              </p>
+              <BroadcastInput onBroadcasted={onBroadcasted} />
+              <button
+                onClick={() => setShowBroadcast(false)}
+                className="inline-flex items-center gap-1.5 mt-2 text-muted text-xs hover:text-foreground transition-colors cursor-pointer"
+              >
+                <ArrowLeft size={12} />
+                Back to instructions
+              </button>
+            </div>
+          )}
+        </div>
       </Card>
 
       {/* PSBT fallback */}
@@ -189,6 +205,7 @@ export function WalletGuide({
             cpfpCandidates={cpfpCandidates}
             onBroadcastReady={() => {}}
             onCancel={() => setShowPsbtFallback(false)}
+            hideBackLink
           />
         </motion.div>
       )}
@@ -196,22 +213,23 @@ export function WalletGuide({
       <div className="flex gap-4">
         <button
           onClick={onChangeWallet}
-          className="text-muted text-sm hover:text-foreground transition-colors cursor-pointer"
+          className="text-muted text-sm hover:text-foreground focus-visible:text-foreground transition-colors cursor-pointer"
         >
           Change wallet
         </button>
         <button
           onClick={onCancel}
-          className="text-muted text-sm hover:text-foreground transition-colors cursor-pointer"
+          className="inline-flex items-center gap-1.5 text-muted text-sm hover:text-foreground focus-visible:text-foreground transition-colors cursor-pointer"
         >
-          &larr; Back to diagnosis
+          <ArrowLeft size={14} />
+          Back to diagnosis
         </button>
       </div>
     </motion.div>
   );
 }
 
-// ── PSBT-import approach ──────────────────────────────────────────────────────
+// -- PSBT-import approach --
 
 function PsbtView({
   guide,
@@ -263,6 +281,7 @@ function PsbtView({
         onBroadcastReady={() => {}}
         onCancel={onCancel}
         visibleTabs={mapImportMethodsToTabs(guide.psbtImportMethods)}
+        hideBackLink
       />
 
       {/* Import steps shown after PSBT is available */}
@@ -274,7 +293,7 @@ function PsbtView({
           <ol className="space-y-2">
             {guide.steps.map((step, i) => (
               <li key={i} className="flex gap-3">
-                <span className="flex-shrink-0 w-7 h-7 rounded-full bg-bitcoin/15 text-bitcoin text-xs font-bold flex items-center justify-center mt-0.5">
+                <span className="flex-shrink-0 w-7 h-7 rounded-full bg-gradient-to-br from-bitcoin/25 to-bitcoin/15 text-bitcoin text-sm font-bold flex items-center justify-center mt-0.5 shadow-[0_0_8px_rgba(247,147,26,0.2)]">
                   {i + 1}
                 </span>
                 <p className="text-sm leading-relaxed">
@@ -291,22 +310,23 @@ function PsbtView({
       <div className="flex gap-4">
         <button
           onClick={onChangeWallet}
-          className="text-muted text-sm hover:text-foreground transition-colors cursor-pointer"
+          className="text-muted text-sm hover:text-foreground focus-visible:text-foreground transition-colors cursor-pointer"
         >
           Change wallet
         </button>
         <button
           onClick={onCancel}
-          className="text-muted text-sm hover:text-foreground transition-colors cursor-pointer"
+          className="inline-flex items-center gap-1.5 text-muted text-sm hover:text-foreground focus-visible:text-foreground transition-colors cursor-pointer"
         >
-          &larr; Back to diagnosis
+          <ArrowLeft size={14} />
+          Back to diagnosis
         </button>
       </div>
     </motion.div>
   );
 }
 
-// ── Unsupported approach ──────────────────────────────────────────────────────
+// -- Unsupported approach --
 
 function UnsupportedView({
   guide,
@@ -358,6 +378,7 @@ function UnsupportedView({
               variant="primary"
               size="sm"
               onClick={() => onSwitchMethod(otherMethod)}
+              data-guide-action
             >
               Try {otherMethod} instead
             </Button>
@@ -377,22 +398,23 @@ function UnsupportedView({
       <div className="flex gap-4">
         <button
           onClick={onChangeWallet}
-          className="text-muted text-sm hover:text-foreground transition-colors cursor-pointer"
+          className="text-muted text-sm hover:text-foreground focus-visible:text-foreground transition-colors cursor-pointer"
         >
           Change wallet
         </button>
         <button
           onClick={onCancel}
-          className="text-muted text-sm hover:text-foreground transition-colors cursor-pointer"
+          className="inline-flex items-center gap-1.5 text-muted text-sm hover:text-foreground focus-visible:text-foreground transition-colors cursor-pointer"
         >
-          &larr; Back to diagnosis
+          <ArrowLeft size={14} />
+          Back to diagnosis
         </button>
       </div>
     </motion.div>
   );
 }
 
-// ── Helpers ───────────────────────────────────────────────────────────────────
+// -- Helpers --
 
 /** Convert **bold** markers to <strong> elements */
 function renderFormatted(text: string): ReactNode {

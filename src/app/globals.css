@@ -3,13 +3,14 @@
 :root {
   --background: #0a0a0a;
   --foreground: #ededed;
-  --muted: #71717a;
+  --muted: #787880;
   --card-bg: #18181b;
-  --card-border: #27272a;
+  --card-border: #333338;
   --surface-inset: #111113;
+  --surface-elevated: #1c1c1f;
   --bitcoin: #f7931a;
   --bitcoin-hover: #e8850f;
-  --success: #22c55e;
+  --success: #28d065;
   --warning: #eab308;
   --danger: #ef4444;
   --info: #3b82f6;
@@ -22,6 +23,7 @@
   --color-card-bg: var(--card-bg);
   --color-card-border: var(--card-border);
   --color-surface-inset: var(--surface-inset);
+  --color-surface-elevated: var(--surface-elevated);
   --color-bitcoin: var(--bitcoin);
   --color-bitcoin-hover: var(--bitcoin-hover);
   --color-success: var(--success);
@@ -41,4 +43,27 @@ body {
 ::selection {
   background: var(--bitcoin);
   color: #000;
+}
+
+button:focus-visible,
+a:focus-visible,
+[tabindex]:focus-visible {
+  outline: 2px solid var(--bitcoin);
+  outline-offset: 2px;
+}
+
+input:focus-visible,
+textarea:focus-visible {
+  outline: 2px solid var(--bitcoin);
+  outline-offset: 2px;
+  box-shadow: 0 0 0 4px rgba(247, 147, 26, 0.1);
+}
+
+select:focus-visible {
+  outline: 3px solid var(--bitcoin);
+  outline-offset: 2px;
+}
+
+.tabular-nums {
+  font-variant-numeric: tabular-nums;
 }

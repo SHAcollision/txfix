@@ -5,6 +5,7 @@ import { CopyButton } from "./ui/CopyButton";
 import { truncateTxid, formatSats, satsToDollars } from "@/lib/bitcoin/format";
 import { useNetwork } from "@/context/NetworkContext";
 import { motion } from "motion/react";
+import { ShieldCheck } from "lucide-react";
 
 interface RescueReceiptProps {
   originalTxid: string;
@@ -49,14 +50,14 @@ export function RescueReceipt({
               damping: 20,
               delay: 0.2,
             }}
-            className="inline-flex items-center justify-center w-12 h-12 rounded-full bg-success/15 text-success text-2xl mx-auto"
+            className="inline-flex items-center justify-center w-12 h-12 rounded-full bg-success/15 text-success mx-auto"
           >
-            &#10003;
+            <ShieldCheck size={24} />
           </motion.div>
           <h3 className="font-bold text-lg">Transaction Rescued</h3>
         </div>
 
-        <div className="space-y-3 text-sm">
+        <div className="space-y-3 text-sm tabular-nums">
           <div className="flex justify-between items-start gap-4">
             <span className="text-muted shrink-0">Method</span>
             <span className="font-mono font-medium">{method}</span>

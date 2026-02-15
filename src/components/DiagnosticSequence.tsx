@@ -13,8 +13,8 @@ export function DiagnosticSequence({ steps, isRunning }: DiagnosticSequenceProps
   return (
     <div className="bg-surface-inset border border-card-border rounded-xl p-4 sm:p-5 font-mono">
       <div className="space-y-0.5" aria-live="polite">
-        {steps.map((step) => (
-          <DiagnosticStep key={step.id} step={step} />
+        {steps.map((step, i) => (
+          <DiagnosticStep key={step.id} step={step} index={i} />
         ))}
       </div>
       {isRunning && (

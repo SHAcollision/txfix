@@ -1,6 +1,7 @@
 "use client";
 
 import { useCallback } from "react";
+import { Download } from "lucide-react";
 import { Button } from "./ui/Button";
 
 interface PsbtFileDownloadProps {
@@ -24,6 +25,7 @@ export function PsbtFileDownload({ psbtBase64 }: PsbtFileDownloadProps) {
   return (
     <div className="space-y-3">
       <Button variant="secondary" onClick={handleDownload} className="w-full">
+        <Download size={16} />
         Download .psbt file
       </Button>
       <p className="text-muted text-xs text-center">

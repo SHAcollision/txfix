@@ -1,6 +1,7 @@
 "use client";
 
 import { useState } from "react";
+import { motion, AnimatePresence } from "motion/react";
 import { useBroadcast } from "@/hooks/useBroadcast";
 import { Button } from "./ui/Button";
 import { Card } from "./ui/Card";
@@ -45,32 +46,40 @@ export function BroadcastInput({ onBroadcasted }: BroadcastInputProps) {
       </div>
 
       {/* Mode toggle */}
-      <div className="flex gap-1 bg-surface-inset rounded-lg p-1">
+      <div className="flex gap-1 bg-surface-inset rounded-lg p-1" role="tablist">
         <button
+          role="tab"
+          aria-selected={mode === "broadcast"}
+          aria-controls="panel-broadcast"
+          id="tab-broadcast"
           onClick={() => {
             setMode("broadcast");
             setInput("");
           }}
-          aria-pressed={mode === "broadcast"}
-          className={`flex-1 px-3 py-1.5 text-sm font-medium rounded-md transition-colors cursor-pointer
+          className={`flex-1 px-3 py-1.5 text-sm font-medium rounded-md transition-all duration-150 cursor-pointer
+            focus-visible:outline focus-visible:outline-2 focus-visible:outline-bitcoin focus-visible:outline-offset-1
             ${
               mode === "broadcast"
-                ? "bg-card-bg text-foreground"
+                ? "bg-card-bg text-foreground shadow-sm border border-card-border/50 border-b-2 border-b-bitcoin"
                 : "text-muted hover:text-foreground"
             }`}
         >
           Broadcast
         </button>
         <button
+          role="tab"
+          aria-selected={mode === "txid"}
+          aria-controls="panel-txid"
+          id="tab-txid"
           onClick={() => {
             setMode("txid");
             setInput("");
           }}
-          aria-pressed={mode === "txid"}
-          className={`flex-1 px-3 py-1.5 text-sm font-medium rounded-md transition-colors cursor-pointer
+          className={`flex-1 px-3 py-1.5 text-sm font-medium rounded-md transition-all duration-150 cursor-pointer
+            focus-visible:outline focus-visible:outline-2 focus-visible:outline-bitcoin focus-visible:outline-offset-1
             ${
               mode === "txid"
-                ? "bg-card-bg text-foreground"
+                ? "bg-card-bg text-foreground shadow-sm border border-card-border/50 border-b-2 border-b-bitcoin"
                 : "text-muted hover:text-foreground"
             }`}
         >
@@ -78,59 +87,73 @@ export function BroadcastInput({ onBroadcasted }: BroadcastInputProps) {
         </button>
       </div>
 
-      {mode === "broadcast" ? (
-        <>
-          <textarea
-            value={input}
-            onChange={(e) => setInput(e.target.value)}
-            placeholder="Paste signed transaction hex..."
-            spellCheck={false}
-            autoComplete="off"
-            rows={3}
-            className="w-full bg-surface-inset border border-card-border rounded-lg px-3 py-2
-              font-mono text-sm text-foreground placeholder:text-muted/50
-              focus:outline-none focus:border-bitcoin transition-colors resize-none"
-          />
-          <div className="flex items-center gap-3">
-            <Button
-              onClick={handleBroadcast}
-              disabled={!input.trim() || isLoading}
-            >
-              {isLoading ? (
-                <span className="flex items-center gap-2">
-                  <Spinner size="sm" />
-                  Broadcasting...
-                </span>
-              ) : (
-                "Broadcast"
+      <AnimatePresence mode="wait">
+        <motion.div
+          key={mode}
+          role="tabpanel"
+          aria-labelledby={`tab-${mode}`}
+          id={`panel-${mode}`}
+          initial={{ opacity: 0, y: 8 }}
+          animate={{ opacity: 1, y: 0 }}
+          exit={{ opacity: 0, y: -8 }}
+          transition={{ duration: 0.2, ease: "easeOut" }}
+          className="space-y-4"
+        >
+          {mode === "broadcast" ? (
+            <>
+              <textarea
+                value={input}
+                onChange={(e) => setInput(e.target.value)}
+                placeholder="Paste signed transaction hex..."
+                spellCheck={false}
+                autoComplete="off"
+                rows={3}
+                className="w-full bg-surface-inset border border-card-border rounded-lg px-3 py-2
+                  font-mono text-sm text-foreground placeholder:text-muted/50
+                  focus:outline-none focus:border-bitcoin transition-colors resize-none"
+              />
+              <div className="flex items-center gap-3">
+                <Button
+                  onClick={handleBroadcast}
+                  disabled={!input.trim() || isLoading}
+                >
+                  {isLoading ? (
+                    <span className="flex items-center gap-2">
+                      <Spinner size="sm" />
+                      Broadcasting...
+                    </span>
+                  ) : (
+                    "Broadcast"
+                  )}
+                </Button>
+              </div>
+            </>
+          ) : (
+            <>
+              <input
+                type="text"
+                value={input}
+                onChange={(e) => setInput(e.target.value)}
+                placeholder="Paste replacement TXID..."
+                spellCheck={false}
+                autoComplete="off"
+                className="w-full bg-surface-inset border border-card-border rounded-lg px-3 py-2
+                  font-mono text-sm text-foreground placeholder:text-muted/50
+                  focus:outline-none focus:border-bitcoin transition-colors"
+              />
+              {input.trim() && !isValidTxid(input.trim()) && (
+                <p className="text-danger text-xs">Invalid TXID - must be a 64-character hex string</p>
               )}
-            </Button>
-          </div>
-        </>
-      ) : (
-        <>
-          <input
-            type="text"
-            value={input}
-            onChange={(e) => setInput(e.target.value)}
-            placeholder="Paste replacement TXID..."
-            spellCheck={false}
-            autoComplete="off"
-            className="w-full bg-surface-inset border border-card-border rounded-lg px-3 py-2
-              font-mono text-sm text-foreground placeholder:text-muted/50
-              focus:outline-none focus:border-bitcoin transition-colors"
-          />
-          {input.trim() && !isValidTxid(input.trim()) && (
-            <p className="text-danger text-xs">Invalid TXID -must be a 64-character hex string</p>
+              <Button
+                onClick={handleTxidSubmit}
+                disabled={!isValidTxid(input.trim())}
+              >
+                Track Transaction
+              </Button>
+            </>
           )}
-          <Button
-            onClick={handleTxidSubmit}
-            disabled={!isValidTxid(input.trim())}
-          >
-            Track Transaction
-          </Button>
-        </>
-      )}
+        </motion.div>
+      </AnimatePresence>
 
       {error && (
         <p className="text-danger text-sm">

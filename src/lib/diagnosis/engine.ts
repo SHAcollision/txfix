@@ -199,9 +199,9 @@ function buildVerdict(
 function buildHeadline(severity: Verdict["severity"], blocks: number): string {
   switch (severity) {
     case "STUCK":
-      return `Stuck - ${formatBlockEstimate(blocks)} at current fee rate`;
+      return `Stuck, but fixable - ${formatBlockEstimate(blocks)} at current rate`;
     case "SLOW":
-      return `Slow - ${formatBlockEstimate(blocks)} at current fee rate`;
+      return `Slow, but fixable - ${formatBlockEstimate(blocks)} at current rate`;
     case "FINE":
       return "Looking good - should confirm soon";
     case "CONFIRMED":

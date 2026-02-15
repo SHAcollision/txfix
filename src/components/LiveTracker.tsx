@@ -6,6 +6,7 @@ import { Card } from "./ui/Card";
 import { Spinner } from "./ui/Spinner";
 import { truncateTxid } from "@/lib/bitcoin/format";
 import { motion } from "motion/react";
+import { Check, ExternalLink } from "lucide-react";
 
 interface LiveTrackerProps {
   txid: string;
@@ -67,7 +68,7 @@ export function LiveTracker({
                     ${isPending ? "bg-card-border text-muted" : ""}`}
                 >
                   {isDone ? (
-                    <span>&#10003;</span>
+                    <Check size={16} />
                   ) : isActive && !isConfirmed ? (
                     <Spinner size="sm" />
                   ) : isActive && isConfirmed ? (
@@ -76,7 +77,7 @@ export function LiveTracker({
                       animate={{ scale: 1 }}
                       transition={{ type: "spring", stiffness: 400, damping: 15 }}
                     >
-                      &#10003;
+                      <Check size={16} />
                     </motion.span>
                   ) : (
                     <span className="text-xs">{i + 1}</span>
@@ -112,14 +113,19 @@ export function LiveTracker({
           animate={{ opacity: 1, y: 0 }}
           className="text-success text-sm text-center"
         >
-          Confirmed in block {blockHeight.toLocaleString()}
+          Confirmed in block <span className="tabular-nums">{blockHeight.toLocaleString()}</span>
         </motion.p>
       )}
 
       {!isConfirmed && (
-        <p className="text-muted text-xs text-center">
-          Checking every 10 seconds...
-        </p>
+        <div className="text-center space-y-1">
+          <p className="text-muted text-xs">
+            Checking every 10 seconds...
+          </p>
+          <p className="text-muted/50 text-xs">
+            You can close this tab - your transaction will confirm either way.
+          </p>
+        </div>
       )}
 
       {/* Explorer link */}
@@ -128,9 +134,10 @@ export function LiveTracker({
           href={`${config.explorerUrl}/tx/${txid}`}
           target="_blank"
           rel="noopener noreferrer"
-          className="text-bitcoin text-sm hover:underline text-center"
+          className="inline-flex items-center justify-center gap-1.5 text-bitcoin text-sm hover:underline"
         >
-          View replacement on mempool.space &rarr;
+          View replacement on mempool.space
+          <ExternalLink size={14} />
         </a>
         <a
           href={`${config.explorerUrl}/tx/${originalTxid}`}

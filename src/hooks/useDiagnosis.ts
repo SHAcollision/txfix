@@ -78,11 +78,16 @@ export function useDiagnosis(txid: string | null): DiagnosisResult {
 
     abortRef.current = false;
 
+    const MIN_STEP_DELAY_MS = 200;
+    const MIN_TOTAL_DIAGNOSIS_MS = 1600;
+
     async function run() {
       setPhase("fetching");
       setSteps([]);
       setVerdict(null);
       setError(null);
+
+      const startTime = Date.now();
 
       try {
         const client = createMempoolClient(config.mempoolBaseUrl);
@@ -97,10 +102,20 @@ export function useDiagnosis(txid: string | null): DiagnosisResult {
 
           if (!result.done) {
             setSteps((prev) => [...prev, result.value as CheckResult]);
+            // Small delay between steps so users can see each check
+            await new Promise((r) => setTimeout(r, MIN_STEP_DELAY_MS));
+            if (abortRef.current) return;
           }
         } while (!result.done);
 
         if (abortRef.current) return;
+
+        // Ensure minimum total diagnosis time for perceived thoroughness
+        const elapsed = Date.now() - startTime;
+        if (elapsed < MIN_TOTAL_DIAGNOSIS_MS) {
+          await new Promise((r) => setTimeout(r, MIN_TOTAL_DIAGNOSIS_MS - elapsed));
+          if (abortRef.current) return;
+        }
 
         const engineResult = result.value;
         setVerdict(engineResult.verdict);
