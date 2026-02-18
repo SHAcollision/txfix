@@ -7,6 +7,14 @@ export function Footer() {
       <span className="text-muted/50">3 clicks to unstick</span>
       <span className="text-muted/50">Free &amp; open source</span>
       <a
+        href="https://am-i.exposed"
+        target="_blank"
+        rel="noopener noreferrer"
+        className="text-muted/50 hover:text-foreground transition-colors"
+      >
+        am-i.exposed
+      </a>
+      <a
         href="https://github.com/copexit/txfix"
         target="_blank"
         rel="noopener noreferrer"
